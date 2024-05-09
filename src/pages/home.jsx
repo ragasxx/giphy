@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { GifState } from "../context/gif-context";
 import Gif from "../components/gif";
+import FilterGif from "../components/filter-gifs";
 
 const Home = () => {
   const { gf, gifs, setGifs, filter } = GifState();
@@ -28,11 +29,11 @@ const Home = () => {
         className="w-full rounded mt-3"
       />
 
-      {/* filter gifs */}
+      <FilterGif showTrending />
 
       <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
         {gifs.map((gif) => (
-          <Gif gif={gif} key={gif.title} />
+          <Gif gif={gif} key={gif.id} />
         ))}
       </div>
     </div>
