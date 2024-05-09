@@ -8,8 +8,8 @@ const GifSearch = () => {
 
   const searchGifs = () => {
     if (query.trim() === "") return;
-
     navigate(`/search/${query}`);
+    setQuery("");
   };
 
   return (

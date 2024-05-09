@@ -19,8 +19,6 @@ const Home = () => {
     fetchTrendingGifs();
   }, [filter]);
 
-  console.log(gifs);
-
   return (
     <div>
       <img
