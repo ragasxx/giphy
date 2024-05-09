@@ -19,8 +19,6 @@ const Header = () => {
     fetchGifCategories();
   }, []);
 
-  console.log(categories);
-
   return (
     <nav>
       <div className="relative flex gap-4 justify-between items-center mb-2">
