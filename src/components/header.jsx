@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import logo from "/logo.svg";
 import { HiEllipsisVertical, HiMiniBars3BottomRight } from "react-icons/hi2";
 import { GifState } from "../context/gif-context";
+import GifSearch from "./gif-search";
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
   const [showCategories, setShowCategories] = useState(false);
 
-  const { gf, filter, setFilter, favourites } = GifState();
+  const { gf, favourites } = GifState();
 
   const fetchGifCategories = async () => {
     const { data } = await gf.categories();
@@ -71,14 +72,16 @@ const Header = () => {
             <hr className="bg-gray-100 opacity-50 my-5" />
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
               {categories?.map((category) => (
-                <Link to={`/${category.name_encoded}`}>{category.name}</Link>
+                <Link key={category.name} to={`/${category.name_encoded}`}>
+                  {category.name}
+                </Link>
               ))}
             </div>
           </div>
         )}
       </div>
 
-      {/* {search} */}
+      <GifSearch />
     </nav>
   );
 };
