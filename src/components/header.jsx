@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../public/logo.svg";
+import logo from "/logo.svg";
 import { HiEllipsisVertical, HiMiniBars3BottomRight } from "react-icons/hi2";
+import { GifState } from "../context/gif-context";
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
   const [showCategories, setShowCategories] = useState(false);
+
+  const { gf, filter, setFilter, favourites } = GifState();
+
+  const fetchGifCategories = async () => {
+    const { data } = await gf.categories();
+    setCategories(data);
+  };
+
+  useEffect(() => {
+    fetchGifCategories();
+  }, []);
+
+  console.log(categories);
 
   return (
     <nav>
@@ -17,24 +31,16 @@ const Header = () => {
           </h1>
         </Link>
 
-        {
-          // render categories
-        }
-
         <div className="font-bold text-md flex gap-2 items-center">
-          <Link className="px-4 py-1 font-bold hover:gradient border-b-4 hidden lg:block">
-            Reactions
-          </Link>
-          <Link className="px-4 py-1 font-bold hover:gradient border-b-4 hidden lg:block">
-            Reactions
-          </Link>
-          <Link className="px-4 py-1 font-bold hover:gradient border-b-4 hidden lg:block">
-            Reactions
-          </Link>
-
-          <Link className="px-4 py-1 font-bold hover:gradient border-b-4 hidden lg:block">
-            Reactions
-          </Link>
+          {categories?.slice(0, 5)?.map((category) => (
+            <Link
+              key={category.name}
+              to={`/${category.name_encoded}`}
+              className="px-4 py-1 font-bold hover:gradient border-b-4 hidden lg:block"
+            >
+              {category.name}
+            </Link>
+          ))}
 
           <button onClick={() => setShowCategories(!showCategories)}>
             <HiEllipsisVertical
@@ -45,9 +51,11 @@ const Header = () => {
             />
           </button>
 
-          <div className="h-10 px-6 pt-1.5 py-3 bg-gray-700 rounded-md cursor-pointer">
-            <Link to="/favourites">Favourite Gif's</Link>
-          </div>
+          {favourites.length > 0 && (
+            <div className="h-10 px-6 pt-1.5 py-3 bg-gray-700 rounded-md cursor-pointer">
+              <Link to="/favourites">Favourite Gif's</Link>
+            </div>
+          )}
 
           <button>
             <HiMiniBars3BottomRight
@@ -59,10 +67,14 @@ const Header = () => {
 
         {showCategories && (
           <div className="absolute right-0 top-14 px-10 pt-6 pb-9 w-full gradient z-20">
-            <span>Categories</span>
-            <hr />
-            <div>
-              <Link>Reactions</Link>
+            <span className="text-3xl font-sans font-extrabold p-2">
+              Categories
+            </span>
+            <hr className="bg-gray-100 opacity-50 my-5" />
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+              {categories?.map((category) => (
+                <Link to={`/${category.name_encoded}`}>{category.name}</Link>
+              ))}
             </div>
           </div>
         )}
