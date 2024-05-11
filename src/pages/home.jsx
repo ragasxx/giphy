@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from "react";
 import { GifState } from "../context/gif-context";
 import Gif from "../components/gif";
 import FilterGif from "../components/filter-gifs";
+import { Link } from "react-router-dom";
+import { HiMiniHeart } from "react-icons/hi2";
 
 const Home = () => {
   const { gf, gifs, setGifs, filter } = GifState();

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "/logo.svg";
-import { HiEllipsisVertical, HiMiniBars3BottomRight } from "react-icons/hi2";
+import {
+  HiEllipsisVertical,
+  HiMiniBars3BottomRight,
+  HiMiniHeart,
+} from "react-icons/hi2";
 import { GifState } from "../context/gif-context";
 import GifSearch from "./gif-search";
 
@@ -51,8 +55,10 @@ const Header = () => {
           </button>
 
           {favourites.length > 0 && (
-            <div className="h-10 px-6 pt-1.5 py-3 bg-gray-700 rounded-md cursor-pointer">
-              <Link to="/favourites">Favourite Gif's</Link>
+            <div className="h-8 px-3 pt-1 py-1 sm:block sm:h-10 text-center sm:px-6 sm:pt-1.5 sm:py-3 bg-slate-800 rounded-md cursor-pointer">
+              <Link to="/favourites">
+                <HiMiniHeart size={25} />
+              </Link>
             </div>
           )}
 
@@ -72,7 +78,11 @@ const Header = () => {
             <hr className="bg-gray-100 opacity-50 my-5" />
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
               {categories?.map((category) => (
-                <Link key={category.name} to={`/${category.name_encoded}`}>
+                <Link
+                  key={category.name}
+                  to={`/${category.name_encoded}`}
+                  onClick={() => setShowCategories(!showCategories)}
+                >
                   {category.name}
                 </Link>
               ))}
@@ -87,3 +97,5 @@ const Header = () => {
 };
 
 export default Header;
+
+//

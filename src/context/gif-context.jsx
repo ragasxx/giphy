@@ -16,9 +16,11 @@ const GifProvider = ({ children }) => {
 
   const addToFavourites = (gifId) => {
     if (favourites.includes(gifId)) {
-      const updatedFavourites = favourites.filter((item) => item.id !== gifId);
-      setFavourites(updatedFavourites);
+      console.log("under if", gifId);
+      const updatedFavourites = favourites.filter((item) => item !== gifId);
+      console.log("updated favourites", updatedFavourites);
       localStorage.setItem("favouriteGIFs", JSON.stringify(updatedFavourites));
+      setFavourites(updatedFavourites);
     } else {
       const updatedFavourites = [...favourites];
       updatedFavourites.push(gifId);
@@ -26,6 +28,8 @@ const GifProvider = ({ children }) => {
       setFavourites(updatedFavourites);
     }
   };
+
+  console.log("favourites", favourites);
 
   useEffect(() => {
     const favourites = JSON.parse(localStorage.getItem("favouriteGIFs")) || [];

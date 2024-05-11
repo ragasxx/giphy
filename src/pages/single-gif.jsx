@@ -34,7 +34,7 @@ const GifPage = () => {
   useEffect(() => {
     if (!contentType.includes(type)) throw new Error("Invalid Content Type");
     fetchGif();
-  }, []);
+  }, [slug]);
 
   return (
     <div className="grid grid-cols-4 my-10 gap-4">
