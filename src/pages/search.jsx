@@ -25,8 +25,6 @@ const Search = () => {
     setSearchResults(data);
   };
 
-  console.log(searchResults);
-
   return (
     <div className="my-4">
       <h2 className="text-4xl sm:text-5xl pb-3 font-extrabold">{query}</h2>
